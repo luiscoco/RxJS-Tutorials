@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2016",
+    "sourceMap": false,
+    "moduleResolution": "node",
+    "outDir": "./dist"
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "ts_import.ts"
+  ]
+}
