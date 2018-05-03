@@ -1,4 +1,7 @@
 const Subject = require('rxjs/Subject').Subject;
+require('rxjs/add/operator/mergeMap');
+require('rxjs/add/operator/finally');
+require('rxjs/add/operator/share');
 
 const o = new Subject();
 o.next(1);
@@ -9,3 +12,21 @@ x.unsubscribe();
 o.next(4);
 let y = o.subscribe(r => console.log(`y${r}`)); // y5
 o.next(5);
+
+
+const o1 = new Subject();
+
+o1
+    .flatMap(() => Promise.resolve('a'))
+    .flatMap(r => {
+        console.log(r); //a
+        return Promise.resolve('b');
+    })
+    .finally(() => {
+        console.log('finally');
+    })
+    .subscribe(() => console.log('done')); // done
+
+o1.next(1);
+
+o1.complete(); // complete is required to trigger finally
