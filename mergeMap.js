@@ -14,14 +14,14 @@ const arr = [
 ];
 
 Observable.from(arr)
-.mergeMap((value, index) => {
-    console.log('calculating ' + value);
-    const now = new Date().getTime();
-    return Observable.of('the square of ' + value + ' is '+  value * value)
-        .delay((index + 1) * 1000)
-        .map(result => result  + '. Time used ' + (new Date().getTime() - now));
-}, 3)
-.subscribe(console.log);
+    .mergeMap((value, index) => {
+        console.log('calculating ' + value);
+        const now = new Date().getTime();
+        return Observable.of('the square of ' + value + ' is ' + value * value)
+            .delay((index + 1) * 1000)
+            .map(result => result + '. Time used ' + (new Date().getTime() - now));
+    }, 3)
+    .subscribe(console.log);
 
 /**
  calculating 1
