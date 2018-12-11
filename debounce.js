@@ -1,3 +1,5 @@
+// filter, only last
+
 const Observable = require('rxjs/Observable').Observable;
 require('rxjs/add/operator/debounce');
 const timer = require('rxjs/observable/timer').timer;

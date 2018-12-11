@@ -1,3 +1,5 @@
+// filter, only first
+
 const Observable = require('rxjs/Observable').Observable;
 require('rxjs/add/operator/throttle');
 const timer = require('rxjs/observable/timer').timer;
