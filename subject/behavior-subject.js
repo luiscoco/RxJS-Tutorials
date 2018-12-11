@@ -1,3 +1,4 @@
+// once subscribe, the previous value will be used once first
 const BehaviorSubject = require('rxjs/BehaviorSubject').BehaviorSubject;
 
 const o = new BehaviorSubject(1);
@@ -10,7 +11,7 @@ o.next(4);
 y.unsubscribe();
 o.next(5);
 o.next(6);
-let z = o.subscribe(r => console.log(`z${r}`)); // z6  once subscribe, the previous value will be used once first
+let z = o.subscribe(r => console.log(`z${r}`)); // z6
 
 /*
  * output
