@@ -30,3 +30,22 @@ o1
 o1.next(1);
 
 o1.complete(); // complete is required to trigger finally
+
+const o2 = new Subject();
+
+o2.subscribe(_ => console.log(`o2a ${_}`));
+o2.next(1);
+
+o2.unsubscribe();
+
+try {
+    o2.next(2);
+} catch (e) {
+    console.error('Error: (o2.next)', e.message);
+}
+
+try {
+    o2.subscribe(_ => console.log(`o2b ${_}`));
+} catch (e) {
+    console.error('Error: (o2.subscribe)', e.message);
+}
