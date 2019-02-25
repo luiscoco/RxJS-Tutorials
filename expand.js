@@ -17,17 +17,25 @@ const source = Rx.Observable
                     page    : param.request.page + 1,
                     per_page: param.request.per_page
                 },
-                items   : param.items.concat([{'a': param.request.page}]),
+                items   : {'a': param.request.page},
                 has_next: true
             };
             if (param.request.page > 10) {
                 res.has_next = false;
             }
-            return Rx.Observable.of(res).delay(100);
+            return Rx.Observable.of(res).delay(1000);
         })
     )
     .takeWhile(v => {
         return v.has_next;
-    });
+    })
+    .startWith([])
+    .scan((all, cur) => all.concat(cur))
+    .takeLast(1);
 
-source.subscribe(console.log);
+
+source.subscribe(_ => {
+    console.log(_);
+}, console.log, () => {
+    console.log('Completed');
+});
