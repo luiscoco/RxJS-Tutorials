@@ -3,6 +3,9 @@ require('rxjs/add/observable/of');
 require('rxjs/add/operator/delay');
 const delay = require('rxjs/operators').delay;
 const tap   = require('rxjs/operators').tap;
+const flatMap = require('rxjs/operators').flatMap;
+const of = require('rxjs/observable/of').of;
+const map = require('rxjs/operators/map').map;
 
 Observable.of([1, 2, 3, 4]).subscribe(console.log); // [1, 2, 3, 4]
 
@@ -21,3 +24,10 @@ Observable.of(1)
  tapping 1
  end 1
  **/
+
+Observable.of(1)
+    .pipe(
+        flatMap(_ => of({'aaaa': 'hihi'})),
+        map(_ => _.aaaa)
+    )
+    .subscribe(i => console.log('end ' + i));
