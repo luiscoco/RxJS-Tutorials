@@ -62,7 +62,7 @@ api().pipe(
     // retry(5),
     retryWhen(errors => errors.pipe(
         flatMap((_, i) => {
-            return timer(i * 1000);
+            return timer((i+1) * 1000);
         }),
         take(5) // max attempts
     ))
