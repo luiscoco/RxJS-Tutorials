@@ -23,14 +23,14 @@ race([o1, o2, o3])
     .pipe(
         tap(console.log),
         take(2),
-        mergeMap(_ => of(`Calling ${_}, which should be called twice.`)),
+        mergeMap(_ => of(`Calling ${_}, which should be called twice.`).delay(5000)),
         tap(console.log),
     )
     .subscribe();
 
 /**
  C 1
- Calling C 1, which should be called twice.
  C 2
+ Calling C 1, which should be called twice.
  Calling C 2, which should be called twice.
  */
