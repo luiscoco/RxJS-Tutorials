@@ -17,6 +17,9 @@ const o3 = Rx.Observable.create(subscriber => {
     of('C 2')
         .delay(1400)
         .subscribe(_ => subscriber.next(_));
+    of('C 3')
+        .delay(1600)
+        .subscribe(_ => subscriber.next(_));
 });
 
 race([o1, o2, o3])
