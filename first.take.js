@@ -1,4 +1,7 @@
 const Rx = require('rxjs/Rx');
+// Any need to call unsubscribe for RxJS first()
+// It unsubscribes automatically after calling first(). The current syntax is
+// observable.pipe(first()).subscribe(func)
 
 const o = Rx.Observable.create((subscriber) => {
     subscriber.next(1);
