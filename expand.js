@@ -1,6 +1,8 @@
 const Rx     = require('rxjs/Rx');
 const expand = require('rxjs/operators').expand;
 
+// Recursively call provided function.
+
 const source = Rx.Observable
     .of({
         request : {
