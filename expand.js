@@ -14,6 +14,7 @@ const source = Rx.Observable
     })
     .pipe(
         expand(param => {
+            // this pattern makes one extra call, so it's necessary to avoid it by using EMPTY
             const res = {
                 request : {
                     page    : param.request.page + 1,
