@@ -8,3 +8,8 @@ let s = i.subscribe((value) => {
         s.unsubscribe();
     }
 });
+
+i2 = Observable.timer(1000); // function like of(1).delay(1000)
+s2 = i2.subscribe((value) => {
+    console.error(value); // 0
+});
