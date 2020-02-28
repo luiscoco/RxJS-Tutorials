@@ -4,10 +4,11 @@ const Observable = require('rxjs/Observable').Observable;
 require('rxjs/add/operator/throttle');
 require('rxjs/add/observable/of');
 require('rxjs/add/observable/never');
-const timer    = require('rxjs/observable/timer').timer;
-const throttle = require('rxjs/operators').throttle;
-const tap      = require('rxjs/operators').tap;
-const flatMap  = require('rxjs/operators').flatMap;
+const timer     = require('rxjs/observable/timer').timer;
+const throttle  = require('rxjs/operators').throttle;
+const tap       = require('rxjs/operators').tap;
+const flatMap   = require('rxjs/operators').flatMap;
+const skipWhile = require('rxjs/operators').skipWhile;
 
 const o = Observable.create((subscriber) => {
     subscriber.next('a1'); // fire
@@ -69,14 +70,12 @@ o.subscribe(console.log); // a1, d1, g1
 //     .subscribe(() => request().subscribe(console.warn));
 
 // ====================== Instead ======================
-// let calling  = false;
+// let calling   = false;
 // const request = () => Observable.of(1).pipe(
+//     skipWhile(() => calling === true),
 //     flatMap(() => {
-//         if (calling) {
-//             return Observable.never()
-//         }
-//         calling =true;
-//         return api();
+//         calling = true;
+//         return api()
 //     }),
 //     tap(v => calling = false),
 // );
