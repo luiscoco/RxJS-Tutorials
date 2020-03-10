@@ -2,6 +2,7 @@ const Observable = require('rxjs/Observable').Observable;
 require('rxjs/add/observable/from');
 require('rxjs/add/operator/zip');
 const tap      = require('rxjs/operators').tap;
+const zip      = require('rxjs').zip;
 const interval = require('rxjs').interval;
 
 function obs() {
@@ -26,3 +27,16 @@ next [4018ms] d, y, 3
 next [5018ms] e, z, 4
 completed
 `;
+
+zip(
+    obs(),
+    obs(),
+    obs(),
+).subscribe(console.log);
+/**
+ [ 'a', 'a', 'a' ]
+ [ 'b', 'b', 'b' ]
+ [ 'c', 'c', 'c' ]
+ [ 'd', 'd', 'd' ]
+ [ 'e', 'e', 'e' ]
+ */
