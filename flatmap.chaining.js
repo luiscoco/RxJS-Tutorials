@@ -9,3 +9,16 @@ Observable.of(1)
     return Observable.of(value + 1)
 })
 .subscribe(console.log); // 2
+
+Observable.of([1]).flatMap(v => {
+    console.log(typeof (v + '234'));
+    return v + '234'; // flatmap can take array or iterable as a response.
+}).subscribe(console.log);
+/**
+ * output
+ string
+ 1
+ 2
+ 3
+ 4
+ **/
