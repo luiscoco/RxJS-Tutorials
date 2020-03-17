@@ -24,9 +24,22 @@ o.takeWhile(value => value < 3).subscribe(console.log); // 1 2
 
 o.takeUntil(Rx.Observable.timer(1000)).subscribe(console.log); // 1 2 3
 
-timer(1000, 1000).map(i => `outer ${i}`).pipe(
-    // take(1), // Unnecessary
-    flatMap(r => timer(0, 500).map(i => `${r} inner ${i}`)),
+timer(1000, 200).map(i => `outer ${i}`).pipe(
+    tap(r => console.warn('Running ' + r)),
+    // take(1), // it depends, if you would like to stop the outer from running as soon as possible, put take(1) here
+    // if the outer is a heavy job, not-repeatable or api call , put first before another flatmapping another observable.
+    flatMap(r => timer(300, 500).map(i => `${r} inner ${i}`)),
     take(1), // it's only necessary to put take(1) or first here in order for the outer observable to be unsubscribed.
     tap(console.log)
 ).subscribe();
+/**
+ Running outer 0
+ Running outer 1
+ outer 0 inner 0
+**/
+
+/**
+ if we put take(1) or first() before flatMap,
+ Running outer 0
+ outer 0 inner 0
+**/
