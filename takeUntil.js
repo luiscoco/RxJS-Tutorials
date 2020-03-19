@@ -6,7 +6,7 @@ const take      = require('rxjs/operators').take;
 const takeUntil = require('rxjs/operators').takeUntil;
 
 const waitingSthToHappen = timer(6000); // in this example, it's in 6 seconds.
-// in practice, it can be a button pressed by a user.
+// in practice, it can be a button pressed by a user. A tear down of an object and component.
 
 
 timer(0, 1000).pipe(
