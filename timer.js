@@ -1,6 +1,7 @@
 const Observable = require('rxjs/Observable').Observable;
 require('rxjs/add/observable/timer');
 const timer = require('rxjs').timer;
+// See mapTo
 
 let i = Observable.timer(0, 1000);
 let s = i.subscribe((value) => {
