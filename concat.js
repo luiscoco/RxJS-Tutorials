@@ -39,3 +39,26 @@ timer(0, 10).pipe(
  Inner 7
  Inner 8
  */
+
+
+// const o$ = timer(30).pipe(mapTo({a: 1, b:2}));
+//
+// timer(0, 10).pipe(
+//     map(i => ({a: i, b: 2})),
+//     flatMap(r => concat(o$, of(r))),
+//     distinct(),
+//     take(10),
+//     tap(console.log)
+// ).subscribe();
+/**
+ { a: 1, b: 2 }
+ { a: 0, b: 2 }
+ { a: 1, b: 2 }
+ { a: 2, b: 2 }
+ { a: 3, b: 2 }
+ { a: 4, b: 2 }
+ { a: 5, b: 2 }
+ { a: 6, b: 2 }
+ { a: 7, b: 2 }
+ { a: 8, b: 2 }
+  */
