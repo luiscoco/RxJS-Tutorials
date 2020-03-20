@@ -61,8 +61,8 @@ api().pipe(
     // retryWhen(genericRetryStrategy()),
     // retry(5),
     retryWhen(errors => errors.pipe(
-        flatMap((_, i) => {
-            return timer((i+1) * 1000);
+        flatMap((errMessage, cnt) => {
+            return timer((cnt+1) * 1000);
         }),
         take(5) // max attempts
     ))
