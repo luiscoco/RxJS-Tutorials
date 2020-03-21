@@ -17,7 +17,8 @@ const filter               = require('rxjs/operators').filter;
 const last                 = require('rxjs/operators').last;
 const distinct             = require('rxjs/operators').distinct;
 const distinctUntilChanged = require('rxjs/operators').distinctUntilChanged;
-
+// You can think of concat like a line at a ATM, the next transaction (subscription) cannot start
+// until the previous completes!
 const o$ = timer(30).pipe(mapTo('Outer'));
 
 timer(0, 10).pipe(
