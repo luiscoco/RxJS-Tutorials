@@ -5,6 +5,7 @@ require('rxjs/add/observable/of');
 require('rxjs/add/operator/delay');
 require('rxjs/add/observable/defer');
 
+// All of the observables must have at least one emit before combineLatest emits a value
 const s1 = Observable.of(1).delay(2000);
 const s2 = Observable.of(2).delay(3000);
 
