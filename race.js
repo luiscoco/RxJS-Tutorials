@@ -8,8 +8,8 @@ const of       = require('rxjs/observable/of').of;
 const mergeMap = require('rxjs/operators/mergeMap').mergeMap;
 require('rxjs/add/operator/delay');
 
-const o1 = interval(1000).pipe(map(_ => `A ${_}`));
-const o2 = interval(800).pipe(map(_ => `B ${_}`));
+const o1 = interval(1000).pipe(map(_ => `A ${_}`)); // Never
+const o2 = interval(800).pipe(map(_ => `B ${_}`)); // Never
 const o3 = Rx.Observable.create(subscriber => {
     of('C 1')
         .delay(700)
@@ -22,7 +22,7 @@ const o3 = Rx.Observable.create(subscriber => {
         .subscribe(_ => subscriber.next(_));
 });
 
-race([o1, o2, o3])
+race([o1, o2, o3]) // never will o1 and o2 be emitted
     .pipe(
         tap(console.log),
         take(2),
