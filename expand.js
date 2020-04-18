@@ -15,6 +15,7 @@ const source = Rx.Observable
     .pipe(
         expand(param => {
             // this pattern makes one extra call, so it's necessary to avoid it by using EMPTY
+            // @file skipWhile.js or below
             const res = {
                 request : {
                     page    : param.request.page + 1,
@@ -42,3 +43,20 @@ source.subscribe(_ => {
 }, console.log, () => {
     console.log('Completed');
 });
+
+/**
+ this.query(filters).pipe(
+ first(),
+ expand(
+ result => result.nextToken ? this.query(filters, {
+                    after: result.nextToken
+                }).pipe(first()) : EMPTY
+ ),
+ takeWhile(result => result.data.length > 0),
+ startWith([]),
+ scan((all: Array<Data>, cur:
+ QueryResponseData<Array<Data>>): Array<Data> => {
+                return all.concat(cur.data ? cur.data : []);
+            }, []),
+ takeLast(1),
+**/
