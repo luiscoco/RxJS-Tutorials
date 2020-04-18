@@ -57,9 +57,13 @@ function api() {
 }
 
 
+// const retryCount = 2;
 api().pipe(
     // retryWhen(genericRetryStrategy()),
     // retry(5),
+    // retryWhen(errors => errors.pipe(
+    //     flatMap((err, cnt) => cnt >= retryCount ? throwError(err) : timer(2000))
+    // )),
     retryWhen(errors => errors.pipe(
         flatMap((errMessage, cnt) => {
             return timer((cnt+1) * 1000);
