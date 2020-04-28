@@ -6,10 +6,12 @@ const never         = require('rxjs/observable/never').never;
 const toArray       = require('rxjs/operators').toArray;
 const timer         = require('rxjs').timer;
 const zip           = require('rxjs').zip;
+const tap           = require('rxjs/operators').tap;
+const from          = require('rxjs/observable/from').from;
+const flatMap       = require('rxjs/operators').flatMap;
 const combineLatest = require('rxjs/observable/combineLatest').combineLatest;
 require('rxjs/add/operator/delay');
 require('rxjs/add/operator/map');
-
 
 // merge
 // a   c
@@ -46,8 +48,22 @@ merge(of(1).delay(400), of(2).delay(900)).pipe(toArray()).subscribe(console.erro
 
 const data = [11, 12];
 
+const m1 = merge(...data.map(num => timer(900).map(() => `${num}a`)));
+const m2 = merge(...data.map(num => timer(300).map(() => `${num}b`)));
 zip(
-    merge(...data.map(num => timer(900).map(() => `${num}a`))).pipe(toArray()),
-    merge(...data.map(num => timer(900).map(() => `${num}b`))).pipe(toArray()),
-).subscribe(console.error);
-// [ [ '11a', '12a' ], [ '11b', '12b' ] ]
+    m1,
+    m2,
+).pipe(toArray()).subscribe(response => {
+    console.error(response);
+});
+// [ [ '11a', '11b' ], [ '12a', '12b' ] ]
+
+// or
+// const m1 = merge(...data.map(num => timer(900).map(() => `${num}a`))).pipe(toArray());
+// const m2 = merge(...data.map(num => timer(300).map(() => `${num}b`))).pipe(toArray());
+// zip(
+//     m1.pipe(flatMap(v => v)),
+//     m2.pipe(flatMap(v => v)),
+// ).pipe(toArray()).subscribe(response => {
+//     console.error(response);
+// });
