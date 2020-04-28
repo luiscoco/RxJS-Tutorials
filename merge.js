@@ -46,7 +46,7 @@ merge(of(3), never())
 
 merge(of(1).delay(400), of(2).delay(900)).pipe(toArray()).subscribe(console.error);
 
-const data = [11, 12];
+const data = [11, 12, 13];
 
 const m1 = merge(...data.map(num => timer(900).map(() => `${num}a`)));
 const m2 = merge(...data.map(num => timer(300).map(() => `${num}b`)));
@@ -56,7 +56,7 @@ zip(
 ).pipe(toArray()).subscribe(response => {
     console.error(response);
 });
-// [ [ '11a', '11b' ], [ '12a', '12b' ] ]
+// [ [ '11a', '11b' ], [ '12a', '12b' ], [ '13a', '13b' ] ]
 
 // or
 // const m1 = merge(...data.map(num => timer(900).map(() => `${num}a`))).pipe(toArray());
