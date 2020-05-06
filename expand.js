@@ -60,3 +60,15 @@ source.subscribe(_ => {
             }, []),
  takeLast(1),
 **/
+/**
+ private recursiveGet<T extends Array<Service>, Y extends { services: T, next: number }>(
+ api, apiNext: (next) => any): Observable<T> {
+    return api.pipe(
+      expand((result: Y) => result.next ? apiNext(result.next) : EMPTY),
+      takeWhile((result: Y) => result.services.length > 0),
+      startWith([]),
+      scan((all: T, cur: Y) => all.concat(cur.services || []) as T),
+      takeLast(1),
+    );
+  }
+**/
