@@ -23,8 +23,9 @@ setTimeout(() => {
 const subject1 = new Subject();
 
 subject1.pipe(
+    tap(r => console.log(`Received ${r}`)),
     debounceTime(2000),
-    tap(console.log)
+    tap(r => console.log(`Done debounced ${r}`))
 ).subscribe();
 
 timer(0, 1000).pipe(
